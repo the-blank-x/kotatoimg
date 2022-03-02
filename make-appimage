@@ -1,0 +1,16 @@
+#!/bin/sh
+# https://github.com/kotatogram/kotatogram-desktop/blob/a97e4aec8d052048746ddb1a37d6a6e782af8c0a/.github/workflows/linux-kotato.yml
+if [ -n "$DEBUG" ]; then
+    DESTDIR=AppDir cmake --install out --config Debug
+else
+    DESTDIR=AppDir cmake --install out --config Release
+fi
+qtchooser -run-tool=linuxdeployqt -qt=5 \
+    AppDir/usr/local/share/applications/*.desktop \
+    -appimage \
+    -exclude-libs=libatk-1.0.so.0,libatk-bridge-2.0.so.0,libatspi.so.0,libcairo-gobject.so.2,libcairo.so.2,libgdk-3.so.0,libgdk_pixbuf-2.0.so.0,libgdk-x11-2.0.so.0,libgmodule-2.0.so.0,libgtk-3.so.0,libgtk-x11-2.0.so.0,libpixman-1.so.0,libpng12.so.0 \
+    -extra-plugins=iconengines,imageformats,platforminputcontexts,platforms/libqwayland-egl.so,platforms/libqwayland-generic.so,platforms/libqxcb.so,platformthemes/libqgtk3.so,platformthemes/libqxdgdesktopportal.so,platformthemes/libqt6ct.so,platformthemes/libqt6gtk2.so,styles/libqt6ct-style.so,styles/libqt6gtk2-style.so,styles/libkvantum.so,tls,wayland-decoration-client,wayland-graphics-integration-client,wayland-shell-integration,xcbglintegrations
+mv Kotatogram_Desktop-*-$(arch).AppImage Kotatogram.AppImage
+echo "AppImage renamed to Kotatogram.AppImage"
+# lmao bye
+dd if=/dev/zero of=Kotatogram.AppImage bs=1 count=3 seek=9 conv=notrunc
