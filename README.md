@@ -25,7 +25,7 @@ docker run --rm -v $(pwd):/ktg kotatoimg \
 If you want a debug build, run
 
 ```bash
-docker run --rm -v $(pwd):/ktg -e DEBGU=1 kotatoimg \
+docker run --rm -v $(pwd):/ktg -e DEBUG=1 kotatoimg \
     bash Telegram/build/docker/centos_env/build.sh \
     -DDESKTOP_APP_USE_PACKAGED_LAZY=ON \
     -DDESKTOP_APP_DISABLE_CRASH_REPORTS=ON
